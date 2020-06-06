@@ -13,12 +13,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class EventTest {
+public class CycleTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	
-	private Event event;
+	private Cycle cycle;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -33,20 +33,26 @@ public class EventTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		event = em.find(Event.class, 1);
+		cycle = em.find(Cycle.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		event = null;
+		cycle = null;
 	}
 
 	@Test //
-	@DisplayName("testing that event mapping work")
+	@DisplayName("testing that cycle mapping work")
 	void test1() {
-		assertNotNull(event);
-		assertEquals("Coco", event.getName());
+		assertNotNull(cycle);
+		assertEquals("march log", cycle.getName());
+		assertEquals(8, cycle.getPeriodDuration());
+		assertEquals("2020-03-22", cycle.getPeriodStart().toString());
+		assertEquals(23, cycle.getCycleLength());
+		assertEquals(Volume.HEAVY, cycle.getVolume());
+		
+		
 
 		
 		
