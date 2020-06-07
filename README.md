@@ -23,3 +23,12 @@
 * Spring Data JPA
 * Git/Github
 * Postman
+
+## Learning Objectives
+- Created a JPA Project
+- Created a Java entity class POJO that models the database table.
+- Mapped POJO using JPA.
+- Configured a Spring Boot app to publish a REST API.
+- Used Spring REST annotations.
+- Used Spring Data JPA to perform all CRUD operations.
+- Practiced sending and receiving JSON.
