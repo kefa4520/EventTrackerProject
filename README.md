@@ -6,15 +6,20 @@
 > This is an Event Tracker that uses Spring REST C.R.U.D. API and helps women keep track of their monthly cycle. In addition to tracking their cycle length and frequency, users can document period related changes.
 
 ---
-### **Table of REST Endpoints**
-**HTTP Verb**| **URI**| **Request Body**|**Response Body**|
+### Table of REST Endpoints
+ Verb   |   URI  | Request Body | Description |
 --------|--------|--------|--------|--------|
-**GET** | api/cycles|       |Collection of all *cycles entries* |
-**GET** | api/cycles/{id}| | Representation of entry at id number-- {id}|
-**GET** | api/cycles/search/{name}| | Collection of all *cycles entries* with name-- {name}|
-**POST** | api/cycles| Representation of new *cycle* entry| Description of the result of the operation|
-**PUT** | api/cycles/{id}| Representation of a *new version* of entry at id number--{id}| |
-**DELETE** | api/cycles/{id}| | | **Delete** route
+**POST** | api/cycles| Representation of new *cycle* entry| Creates a new cycle entry|
+**GET** | api/cycles/{id}| | Representation of entry at id number-- {id}| Retrieves a list of cycle entries by id |
+**GET** | api/cycles/search/{name}| Collection of all *cycles entries* with name-- {name}| Retrieves a list of cycle entries by id |
+**PUT** | api/cycles/{id}| Representation of a *new version* of entry at id number--{id}| Updates an existing entry |
+**DELETE** | api/cycles/{id}| Representation of a *cycle* entry to be deleted| Removes a cycle entry by id|
 
 
 ## Tech Used
+* MySQL, MySQL Workbench
+* JPA/Hibernate
+* Spring Boot
+* Spring Data JPA
+* Git/Github
+* Postman
