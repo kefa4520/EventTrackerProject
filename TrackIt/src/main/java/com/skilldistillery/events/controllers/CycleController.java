@@ -94,17 +94,23 @@ public class CycleController {
 			@PathVariable Integer id,
 			HttpServletResponse response
 	) {
+		
 		try {
 			if (cycleSvc.deleteCycleById(id)) {
 				response.setStatus(204);
-			}
+				
+			} 
 			else {
 				response.setStatus(404);
+			
 			}
-		} catch (Exception e) {
+		}
+			
+		
+		catch (Exception e) {
 			e.printStackTrace();
 			response.setStatus(409);
-		}
+		}  
 	}
 	
 	

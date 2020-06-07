@@ -70,13 +70,16 @@ public class CycleServiceImpl implements CycleService {
 
 	@Override
 	public boolean deleteCycleById(Integer id) {
-		boolean deleted = false;
 		
-		if(cycleRepo.findById(id).isPresent()) {
-			cycleRepo.deleteById(id);
-			deleted = true;
-		}
-			return deleted;
+			try {
+				cycleRepo.deleteById(id);
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		
+			
 		}
 	}
 
