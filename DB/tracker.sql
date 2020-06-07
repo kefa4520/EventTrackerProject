@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `cycle` ;
 
 CREATE TABLE IF NOT EXISTS `cycle` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `period_start` DATE NOT NULL,
+  `period_start` DATETIME NOT NULL,
   `period_duration` INT NOT NULL,
   `cycle_length` INT NOT NULL,
   `volume` ENUM("HEAVY", "MEDIUM", "LIGHT") NOT NULL,
