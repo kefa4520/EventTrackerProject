@@ -35,6 +35,7 @@ public class CycleServiceImpl implements CycleService {
 	@Override
 	public List<Cycle> findByName(String name) {
 
+		name = "%" + name + "%";
 		List<Cycle> cycles = cycleRepo.findByName(name);
 		if(cycles.size()>0) {
 			return cycles;

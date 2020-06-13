@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Track it monthly</title>
+</head>
+<body>
+
+<h1>Track Your Flow</h1>
+<form name="cycleSearch">
+    <input type="number" name="cycleId">
+    <button name="lookup">Find cycle by Id</button>
+  </form>
+<div id="ouput">
+   <div id="cycleData"></div>
+<div id="cyclesList"></div>
+<div id="cyclesDetail"></div>
+<div id="cyclesEddit"></div>
+</div>
+
+<form name="newCycle">
+  <label for = "name">Title</label>
+    <input type="text" name="name" placeholder="Name"><br>
+    
+  <label for = "periodStart">First date of Your last period </label>
+    <input type="date" name="periodStart"><br>
+    
+  <label for = "periodDuration">Period Duration</label>
+    <input type="number" name="periodDuration" placeholder="0"><br>
+    
+  <label for = "cycleLength">Cycle Length</label>
+    <input type="number" name="cycleLength" placeholder="0"><br>
+    
+  <label for = "volume">Flow volume</label>
+    <select name="volume">
+    <option value="HEAVY">Heavy</option>
+    <option value="MEDIUM">Medium</option>
+    <option value="LIGHT">Light</option>
+    </select>
+    
+  <label for = "name">Title</label>
+    <input type="text" name="name" placeholder="Name"><br>
+
+<input type="submit" name="addCycle" value="Track It">
+  </form>
+
+    <table>
+    <!-- here goes the js data! -->
+    </table>
+
+
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
