@@ -30,6 +30,51 @@ function init() { // initializes lookup and create new cycle functions
 
 }
 
+function createCycleToTrack(){
+
+let newForm = document.newCycle;
+let cycle = {};
+cycle.name = newForm.name.value;
+cycle.periodStart = newForm.periodStart.value;
+cycle.periodDuration = newForm.periodDuration.value;
+cycle.cycleLength = newForm.cycleLength.value;
+cycle.volume = newForm.volume.value;
+cycle.notes = newForm.notes.value;
+
+let cycleJson = JSON.stringify(cycle); 
+let xhr = new XMLHttpRequest();
+let uri = 'api/cycles';
+
+xhr.open('POST', uri);
+	xhr.setRequestHeader('Content-type', 'application/json')
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState === 4){
+			if(xhr.status === 200 || xhr.status === 201){
+				let createdCycle = JSON.parse(xhr.responseText);
+				displayCycle(createdCycle);
+			}
+			else{
+				if(xhr.status === 400){
+					displayError(`Invalid cycle data, unable to create cycle form ${cycleJson}`);
+				} else{
+					displayError('Unknown error creating log.')
+				}
+
+
+
+
+			}
+		}
+};
+xhr.send(cycleJson);
+}
+
+
+
+
+
+
+
 function getCycle(cycleId) {
 	
 	let xhr = new XMLHttpRequest();
@@ -41,7 +86,7 @@ function getCycle(cycleId) {
 				let dataJSON = xhr.responseText; 
 				let data = JSON.parse(dataJSON); 
 				console.log(data);
-				displayCycle(data);
+				displayCycle(data); // calls method below to actually display data
 				
 			}else {
 				if (xhr.status === 404) {		
@@ -61,7 +106,7 @@ function getCycle(cycleId) {
 }
 
 
-function displayCycle(cycle){
+function displayCycle(cycle){ //method being called from getCycleById
 	let ErrorDiv = document.getElementById('ErrorData');
 					ErrorDiv.textContent = '';
 	var dataDiv = document.getElementById('cycleData');
