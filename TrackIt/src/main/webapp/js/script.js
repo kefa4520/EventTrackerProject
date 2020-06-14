@@ -30,8 +30,9 @@ getAllList();
 
 }
 
+//********************CRUD********************** */
 function createCycleToTrack(){
-
+	
 let newForm = document.newCycle;
 let cycle = {};
 cycle.name = newForm.name.value;
@@ -51,7 +52,8 @@ xhr.open('POST', uri);
 		if(xhr.readyState === 4){
 			if(xhr.status === 200 || xhr.status === 201){
 				let createdCycle = JSON.parse(xhr.responseText);
-				displayCycle(createdCycle);
+				//displayCycle(createdCycle);
+				getAllList();
 			}
 			else{
 				if(xhr.status === 400){
@@ -69,12 +71,38 @@ xhr.open('POST', uri);
 xhr.send(cycleJson);
 }
 
+function updateCycle(cycle){
 
 
 
+}
+
+function deleteCycle(cycle){
+
+	let id = cycle.id;
+	let xhr = new XMLHttpRequest();
+	let uri = 'api/cycles/' + id; 
+	xhr.open('DELETE', uri);
+	   xhr.setRequestHeader('Content-type', 'application/json');
+	   xhr.onreadystatechange = function() {
+		   if (xhr.readyState === 4) {
+			   if (xhr.status ==200 || xhr.status == 204){
+				getAllList();
+				var dataDiv = document.getElementById('cycleData');
+	dataDiv.textContent = '';
+			   } else {
+				displayError('Error deleting: ' + xhr.status + ':' + xhr.responseText);
+
+			   }
+			}
+
+	   };
+	   xhr.send();
+
+}
 
 
-
+//************************************************* */
 function getCycle(cycleId) {
 	
 	let xhr = new XMLHttpRequest();
@@ -142,7 +170,7 @@ function displayCycle(cycle){ //method being called from getCycleById
 	  updateBtn.textContent = 'UPDATE Cycle';
 	  dataDiv.appendChild(updateBtn);
 	  updateBtn.addEventListener('click', function(){
-				UpdateCycle(cycle);
+				updateCycle(cycle);
 			});
 
 let deleteBtn = document.createElement('button');
@@ -151,7 +179,7 @@ let deleteBtn = document.createElement('button');
 			deleteBtn.textContent = 'DELETE';
 			dataDiv.appendChild(deleteBtn);
 			deleteBtn.addEventListener('click', function(){
-						deleteCycle(cycle.id);
+						deleteCycle(cycle);
 					});
 
 }
