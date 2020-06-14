@@ -17,16 +17,16 @@ function init() { // initializes lookup and create new cycle functions
 	  
     }
   });
-// getAll();
+
 
   document.newCycle.addCycle.addEventListener('click', function(event){
 	event.preventDefault();
 	createCycleToTrack();
 	
-	 
-	 
- });
+	
+});
 
+getAllList();
 
 }
 
@@ -149,4 +149,117 @@ function displayError(message){
 	div.style.fontFamily = 'American Typewriter';
 	div.textContent = message;
 
+}
+
+
+//************************************************** */
+
+function getAllList(){
+
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'api/cycles/');
+	xhr.onreadystatechange = function(){
+		if (xhr.readyState === 4){
+			if (xhr.status === 200){
+				let cycleJSON = xhr.responseText;
+				let data = JSON.parse(cycleJSON);
+				
+				displayAll(data);	
+			}
+			else if (xhr.status === 404) {
+				displayError('Invalid cycle log ' + cycleJSON);
+			}
+			else {
+				displayError('error: ' + xhr.status)
+			}
+		}
+		
+	};
+	xhr.send();
+}
+
+
+function displayAll(cycle) {
+	let dataDiv = document.getElementById('cyclesList');
+	dataDiv.textContent = '';
+	
+	let table = document.createElement('table');
+	let tableHead = document.createElement('thead');
+	let tRow = document.createElement('tr');
+	let tableH = document.createElement('th')	
+	tableH.textContent = 'Cycle Name';
+	tRow.appendChild(tableH);
+	th1 = document.createElement('th');
+	th1.textContent = 'Notes';
+	tRow.appendChild(th1);
+	th2 = document.createElement('th');
+	th2.textContent = 'Start date';
+	tRow.appendChild(th2);
+	th3 = document.createElement('th');
+	th3.textContent = 'Period Duration(days)';
+	tRow.appendChild(th3);
+	th4 = document.createElement('th');
+	th4.textContent = 'Cycle Length(days)';
+	tRow.appendChild(th4);
+	th5 = document.createElement('th');
+	th5.textContent = 'Flow volume';
+	tRow.appendChild(th5);
+	
+	
+	tableHead.appendChild(tRow);	
+	table.appendChild(tableHead);
+
+	let tableBody = document.createElement('tbody');
+	cycle.forEach(element => {
+		console.log(element);
+
+		tr1 = document.createElement('tr');
+		td = document.createElement('td')	
+		td.textContent = element.name;
+		tr1.appendChild(td);
+
+		td1 = document.createElement('td')	
+		td1.textContent = element.notes;
+		tr1.appendChild(td1);
+
+		td2 = document.createElement('td')	
+		td2.textContent = element.periodStart;
+		tr1.appendChild(td2);
+
+		td3 = document.createElement('td')	
+		td3.textContent = element.periodDuration;
+		tr1.appendChild(td3);
+
+		td4 = document.createElement('td')	
+		td4.textContent = element.cycleLength;
+		tr1.appendChild(td4);
+
+		td5 = document.createElement('td')	
+		td5.textContent = element.volume;
+		tr1.appendChild(td5);
+		
+		// td8 = document.createElement('td')	
+		// 	let updateBtn = document.createElement('button');
+		// 	updateBtn.name = 'updateBtn';
+		// 	updateBtn.id = 'updateBtn';
+		// 	updateBtn.textContent = 'UPDATE';
+		// 	td8.appendChild(updateBtn);
+		// 	updateBtn.addEventListener('click', function(){
+		// 		showWateringUpdateForm(element);
+		// 	});
+		// tr1.appendChild(td8);
+		// td9 = document.createElement('td')	
+		// 	let deleteBtn = document.createElement('button');
+		// 	deleteBtn.name = 'deleteBtn';
+		// 	deleteBtn.id = 'deleteBtn';
+		// 	deleteBtn.textContent = 'DELETE';
+		// 	td9.appendChild(deleteBtn);
+		// 	deleteBtn.addEventListener('click', function(){
+		// 		deleteWatering(element.id);
+			// });
+		// tr1.appendChild(td9);
+		tableBody.appendChild(tr1);
+	});
+	table.appendChild(tableBody);
+	dataDiv.appendChild(table);
 }
