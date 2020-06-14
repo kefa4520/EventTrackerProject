@@ -180,6 +180,7 @@ function getAllList(){
 
 
 function displayAll(cycle) {
+
 	let dataDiv = document.getElementById('cyclesList');
 	dataDiv.textContent = '';
 	
@@ -209,6 +210,7 @@ function displayAll(cycle) {
 	tableHead.appendChild(tRow);	
 	table.appendChild(tableHead);
 
+
 	let tableBody = document.createElement('tbody');
 	cycle.forEach(element => {
 		console.log(element);
@@ -237,6 +239,7 @@ function displayAll(cycle) {
 		td5 = document.createElement('td')	
 		td5.textContent = element.volume;
 		tr1.appendChild(td5);
+
 		
 		// td8 = document.createElement('td')	
 		// 	let updateBtn = document.createElement('button');
@@ -259,6 +262,15 @@ function displayAll(cycle) {
 			// });
 		// tr1.appendChild(td9);
 		tableBody.appendChild(tr1);
+
+		//**************************************** */
+	//Add Event Listener
+	tr1.addEventListener('click', function(event){
+		event.preventDefault();
+		this.style.backgroundColor = "salmon";
+		getCycle(element.id);
+	});
+	//**************************************** */
 	});
 	table.appendChild(tableBody);
 	dataDiv.appendChild(table);
