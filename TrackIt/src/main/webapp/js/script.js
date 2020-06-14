@@ -111,7 +111,6 @@ function displayCycle(cycle){ //method being called from getCycleById
 					ErrorDiv.textContent = '';
 	var dataDiv = document.getElementById('cycleData');
 	dataDiv.textContent = '';
-	
 
 	let name = document.createElement("h1");
     name.textContent = 'Search Result: ' + cycle.name;
@@ -137,8 +136,23 @@ function displayCycle(cycle){ //method being called from getCycleById
 	  volume.textContent = 'Flow volume: ' + cycle.volume;
   dataDiv.appendChild(volume);
 
- 
+  let updateBtn = document.createElement('button');
+  	updateBtn.name = 'updateBtn';
+  	updateBtn.id = 'updateBtn';
+	  updateBtn.textContent = 'UPDATE Cycle';
+	  dataDiv.appendChild(updateBtn);
+	  updateBtn.addEventListener('click', function(){
+				UpdateCycle(cycle);
+			});
 
+let deleteBtn = document.createElement('button');
+			deleteBtn.name = 'deleteBtn';
+			deleteBtn.id = 'deleteBtn';
+			deleteBtn.textContent = 'DELETE';
+			dataDiv.appendChild(deleteBtn);
+			deleteBtn.addEventListener('click', function(){
+						deleteCycle(cycle.id);
+					});
 
 }
 
@@ -152,7 +166,7 @@ function displayError(message){
 }
 
 
-//************************************************** */
+//******************   table  ********************* */
 
 function getAllList(){
 
@@ -188,8 +202,12 @@ function displayAll(cycle) {
 	let tableHead = document.createElement('thead');
 	let tRow = document.createElement('tr');
 	let tableH = document.createElement('th')	
-	tableH.textContent = 'Cycle Name';
+	tableH.textContent = 'ID';
 	tRow.appendChild(tableH);
+	th0 = document.createElement('th');
+    th0.textContent = "Cycle Name";
+    tRow.appendChild(th0);
+
 	th1 = document.createElement('th');
 	th1.textContent = 'Notes';
 	tRow.appendChild(th1);
@@ -214,9 +232,14 @@ function displayAll(cycle) {
 	let tableBody = document.createElement('tbody');
 	cycle.forEach(element => {
 		console.log(element);
-
+		
 		tr1 = document.createElement('tr');
-		td = document.createElement('td')	
+		
+		td0 = document.createElement('td')
+		td0.textContent = element.id;
+		tr1.appendChild(td0);
+
+		td = document.createElement('td')
 		td.textContent = element.name;
 		tr1.appendChild(td);
 
@@ -239,35 +262,13 @@ function displayAll(cycle) {
 		td5 = document.createElement('td')	
 		td5.textContent = element.volume;
 		tr1.appendChild(td5);
-
 		
-		// td8 = document.createElement('td')	
-		// 	let updateBtn = document.createElement('button');
-		// 	updateBtn.name = 'updateBtn';
-		// 	updateBtn.id = 'updateBtn';
-		// 	updateBtn.textContent = 'UPDATE';
-		// 	td8.appendChild(updateBtn);
-		// 	updateBtn.addEventListener('click', function(){
-		// 		showWateringUpdateForm(element);
-		// 	});
-		// tr1.appendChild(td8);
-		// td9 = document.createElement('td')	
-		// 	let deleteBtn = document.createElement('button');
-		// 	deleteBtn.name = 'deleteBtn';
-		// 	deleteBtn.id = 'deleteBtn';
-		// 	deleteBtn.textContent = 'DELETE';
-		// 	td9.appendChild(deleteBtn);
-		// 	deleteBtn.addEventListener('click', function(){
-		// 		deleteWatering(element.id);
-			// });
-		// tr1.appendChild(td9);
 		tableBody.appendChild(tr1);
 
-		//**************************************** */
-	//Add Event Listener
+	             //Add Event Listener
 	tr1.addEventListener('click', function(event){
 		event.preventDefault();
-		this.style.backgroundColor = "salmon";
+
 		getCycle(element.id);
 	});
 	//**************************************** */
