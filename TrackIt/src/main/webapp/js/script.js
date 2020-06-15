@@ -71,12 +71,130 @@ xhr.open('POST', uri);
 xhr.send(cycleJson);
 }
 
-function updateCycle(cycle){
+//******************* update methods: doesn't work yet********************* */
 
+function retrieveUpdate(cycle){
+var updateDiv = document.getElementById('cycleEddit');
+
+let updateForm = document.createElement("form");
+updateForm.setAttribute("name", "updateItForm");
+
+let input1 = document.createElement("input");
+input1.setAttribute("type", "hidden");
+input1.setAttribute("name", "id");
+input1.setAttribute("value", cycle.id);
+updateForm.appendChild(input1);
+
+let input2 = document.createElement("input");
+input2.setAttribute("type", "text");
+input2.setAttribute("name", "name");
+input2.setAttribute("label", "Title");;
+//input2.setAttribute("value");
+input2.textContent = cycle.name;
+updateForm.appendChild(input2);
+
+let input3 = document.createElement("input");
+input3.setAttribute("type", "text");
+input3.setAttribute("name", "periodStart");
+//input3.setAttribute("value");
+input3.textContent = cycle.periodStart;
+updateForm.appendChild(input3);
+
+let input4 = document.createElement("input");
+input4.setAttribute("type", "text");
+input4.setAttribute("name", "periodDuration");
+//input4.setAttribute("value");
+input4.textContent = cycle.periodDuration;
+updateForm.appendChild(input4);
+
+let input5 = document.createElement("input");
+input5.setAttribute("type", "text");
+input5.setAttribute("name", "cycleLength");
+//input5.setAttribute("value");
+input5.textContent = cycle.cycleLength;
+updateForm.appendChild(input5);
+
+let input6 = document.createElement("select");
+input6.setAttribute("name", "volume")
+let first = document.createElement("option");
+let opt1 = document.createTextNode("Heavy");
+first.appendChild(opt1);
+//first.setAttribute("value");
+input6.appendChild(first);
+
+let second = document.createElement("option");
+let opt2 = document.createTextNode("Medium");
+second.appendChild(opt2);
+//second.setAttribute("value");
+input6.appendChild(second);
+
+let third = document.createElement("option");
+let opt3 = document.createTextNode("Light");
+third.appendChild(opt3);
+//third.setAttribute("value");
+input6.appendChild(third);
+
+input6.textContent = cycle.volume;
+updateForm.appendChild(input6);
+
+let input7 = document.createElement("input");
+input7.setAttribute("type", "text");
+input7.setAttribute("name", "notes");
+//input7.setAttribute("value");
+input7.textContent = cycle.notes;
+updateForm.appendChild(input7);
+
+var input8 = document.createElement("input");
+input8.setAttribute("type", "submit")
+input8.setAttribute("name", "updateCycle");
+input8.setAttribute("value", "Update It");
+updateForm.appendChild(input8);
+
+
+updateDiv.appendChild(updateForm);
+
+var cycleToUpdate = {};
+cycleToUpdate.id = updateForm.id.value;
+cycleToUpdate.name = updateForm.name.value;
+cycleToUpdate.periodStart = updateForm.periodStart.value;
+cycleToUpdate.periodDuration = updateForm.periodDuration.value;
+cycleToUpdate.cycleLength = updateForm.cycleLength.value;
+cycleToUpdate.volume = updateForm.volume.value;
+cycleToUpdate.notes = updateForm.notes.value;
+
+document.updateItForm.updateCycle.addEventListener('click', function(event){
+	event.preventDefault();
+	doUpdateCycle(cycleToUpdate);
+});
 
 
 }
 
+
+function doUpdateCycle(cycle){
+
+	let idToUpdate = cycle.id;
+	let xhr = new XMLHttpRequest();
+	let uri = 'api/cycles/' + idToUpdate; 
+	xhr.open('PUT', uri);
+	   xhr.setRequestHeader('Content-type', 'application/json');
+	   let justUpdateThisWouldYa = JSON.stringify(cycle);
+	   xhr.onreadystatechange = function() {
+		   if (xhr.readyState === 4) {
+			   if (xhr.status < 300 ){
+				let updatedCycle = xhr.responseText;
+				getAllList();
+			   }
+			   else{
+				   displayError('Error updating');
+			   }
+			}
+		}
+
+		xhr.send(justUpdateThisWouldYa);
+}
+
+//***************************************************************** */
 function deleteCycle(cycle){
 
 	let id = cycle.id;
@@ -170,7 +288,7 @@ function displayCycle(cycle){ //method being called from getCycleById
 	  updateBtn.textContent = 'UPDATE Cycle';
 	  dataDiv.appendChild(updateBtn);
 	  updateBtn.addEventListener('click', function(){
-				updateCycle(cycle);
+		retrieveUpdate(cycle);
 			});
 
 let deleteBtn = document.createElement('button');
@@ -303,4 +421,4 @@ function displayAll(cycle) {
 	});
 	table.appendChild(tableBody);
 	dataDiv.appendChild(table);
-}
+} 
