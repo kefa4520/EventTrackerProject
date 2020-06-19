@@ -89,28 +89,28 @@ let input2 = document.createElement("input");
 input2.setAttribute("type", "text");
 input2.setAttribute("name", "name");
 input2.setAttribute("label", "Title");;
-//input2.setAttribute("value");
+input2.setAttribute("value", "name");
 input2.textContent = cycle.name;
 updateForm.appendChild(input2);
 
 let input3 = document.createElement("input");
 input3.setAttribute("type", "text");
 input3.setAttribute("name", "periodStart");
-//input3.setAttribute("value");
+input3.setAttribute("value", "Period Start" );
 input3.textContent = cycle.periodStart;
 updateForm.appendChild(input3);
 
 let input4 = document.createElement("input");
 input4.setAttribute("type", "text");
 input4.setAttribute("name", "periodDuration");
-//input4.setAttribute("value");
+input4.setAttribute("value", "Duration");
 input4.textContent = cycle.periodDuration;
 updateForm.appendChild(input4);
 
 let input5 = document.createElement("input");
 input5.setAttribute("type", "text");
 input5.setAttribute("name", "cycleLength");
-//input5.setAttribute("value");
+input5.setAttribute("value", "Length");
 input5.textContent = cycle.cycleLength;
 updateForm.appendChild(input5);
 
@@ -119,19 +119,19 @@ input6.setAttribute("name", "volume")
 let first = document.createElement("option");
 let opt1 = document.createTextNode("Heavy");
 first.appendChild(opt1);
-//first.setAttribute("value");
+first.setAttribute("value", "Heavy");
 input6.appendChild(first);
 
 let second = document.createElement("option");
 let opt2 = document.createTextNode("Medium");
 second.appendChild(opt2);
-//second.setAttribute("value");
+second.setAttribute("value", "Medium");
 input6.appendChild(second);
 
 let third = document.createElement("option");
 let opt3 = document.createTextNode("Light");
 third.appendChild(opt3);
-//third.setAttribute("value");
+third.setAttribute("value", "Light");
 input6.appendChild(third);
 
 input6.textContent = cycle.volume;
@@ -140,7 +140,7 @@ updateForm.appendChild(input6);
 let input7 = document.createElement("input");
 input7.setAttribute("type", "text");
 input7.setAttribute("name", "notes");
-//input7.setAttribute("value");
+input7.setAttribute("value", "notes");
 input7.textContent = cycle.notes;
 updateForm.appendChild(input7);
 
