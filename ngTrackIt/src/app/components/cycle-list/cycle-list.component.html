@@ -1,3 +1,5 @@
+<h2 style="text-align: right"> Heavy flow cycles<span class="badge badge-danger">{{getHeavyCount()}}</span> </h2>
+
 <!-- DisplayAll -->
 <div *ngIf = "!selected && !updatedCycle && !addRecord">
 <table class="table table-bordered table-dark">
@@ -33,77 +35,85 @@
 <button  *ngIf="!addRecord && !selected && !updatedCycle" type="button" class="btn btn-secondary" (click) = "displayNew()">Add New Cycle Record</button>
 
   <!-- Display Details -->
-<div *ngIf="selected && !updatedCycle && !addRecord">
-ID: {{selected.id}}
-Name: {{selected.name}}
-First date of Your last period: {{selected.periodStart}}
-Period Duration: {{selected.periodDuration}}
-Cycle Length: {{selected.cycleLength}}
-Flow volume: {{selected.volume}}
-Notes: {{selected.notes}}
+<div class="jumbotron jumbotron-fluid" *ngIf="selected && !updatedCycle && !addRecord">
+  <button class="btn btn-info" (click)='displayTable()'>Go Back</button><br><br>
+  <div class="container">
 
-<button (click)='displayTable()'>Back</button>
+    <h2 class="display-4" >{{selected.name}}</h2><br>
+    <p>ID: {{selected.id}}</p><br>
+    <p class="lead">Notes: {{selected.notes}}</p><br>
+    <p>First date of Your last period: {{selected.periodStart}}</p><br>
+<p>Period Duration: {{selected.periodDuration}} </p><br>
+<p>Cycle Length: {{selected.cycleLength}} </p><br>
+<p>Flow volume: {{selected.volume}}</p><br>
 
+
+</div>
 </div>
 
 
   <!-- Add new -->
   <form *ngIf = "addRecord">
+    <div class="form-group">
+      <button class="btn btn-info" (click)="displayTable()">Go Back</button><br><br>
     <input type = "hidden" name="id" [(ngModel)] = "newCycle.id">
 
   <label for = "name">Title</label>
-    <input type="text" name="name" placeholder="Name" [(ngModel)] = "newCycle.name"><br>
+    <input type="text" class="form-control" name="name" placeholder="Name" [(ngModel)] = "newCycle.name"><br>
 
   <label for = "periodStart">First date of Your last period </label>
-    <input type="date" name="periodStart" [(ngModel)] = "newCycle.periodStart"><br>
+    <input type="date" class="form-control" name="periodStart" [(ngModel)] = "newCycle.periodStart"><br>
 
   <label for = "periodDuration">Period Duration</label>
-    <input type="number" name="periodDuration" placeholder="0" [(ngModel)] = "newCycle.periodDuration"><br>
+    <input type="number" class="form-control" name="periodDuration" placeholder="0" [(ngModel)] = "newCycle.periodDuration"><br>
 
   <label for = "cycleLength">Cycle Length</label>
-    <input type="number" name="cycleLength" placeholder="0" [(ngModel)] = "newCycle.cycleLength"><br>
+    <input type="number" class="form-control" name="cycleLength" placeholder="0" [(ngModel)] = "newCycle.cycleLength"><br>
 
   <label for = "volume">Flow volume</label>
-    <select name="volume" [(ngModel)] = "newCycle.volume">
+    <select name="volume" class="form-control" [(ngModel)] = "newCycle.volume">
     <option value="HEAVY">Heavy</option>
     <option value="MEDIUM">Medium</option>
     <option value="LIGHT">Light</option>
     </select><br>
 
   <label for = "notes">Notes</label>
-    <input type="text" name="notes" placeholder="Notes" [(ngModel)] = "newCycle.notes"><br>
-  <button (click)="create(newCycle)">Track It</button><br>
-  <button (click)="displayTable()">Back</button>
+    <input type="text" class="form-control" name="notes" placeholder="Notes" [(ngModel)] = "newCycle.notes"><br>
+  <button class="btn btn-info" (click)="create(newCycle)">Add This Cycle</button><br>
 
+</div>
   </form>
 
   <!-- Update -->
 
   <form *ngIf = 'updatedCycle'>
-    <input type = "hidden" name="id" [(ngModel)] = "updatedCycle.id">
+    <div class="form-group">
+      <button class="btn btn-info" (click)="displayTable()">Go Back</button><br><br>
+    <input type = "hidden" class="form-control" name="id" [(ngModel)] = "updatedCycle.id">
 
   <label for = "name">Update title</label>
-    <input type="text" name="name" placeholder="Name" [(ngModel)] = "updatedCycle.name"><br>
+    <input type="text" class="form-control" name="name" placeholder="Name" [(ngModel)] = "updatedCycle.name"><br>
 
   <label for = "periodStart">Update first date of Your last period </label>
-    <input type="date" name="periodStart" [(ngModel)] = "updatedCycle.periodStart"><br>
+    <input type="date" class="form-control" name="periodStart" [(ngModel)] = "updatedCycle.periodStart"><br>
 
   <label for = "periodDuration">Update period Duration</label>
-    <input type="number" name="periodDuration" placeholder="0" [(ngModel)] = "updatedCycle.periodDuration"><br>
+    <input type="number" class="form-control" name="periodDuration" placeholder="0" [(ngModel)] = "updatedCycle.periodDuration"><br>
 
   <label for = "cycleLength">Update cycle Length</label>
-    <input type="number" name="cycleLength" placeholder="0" [(ngModel)] = "updatedCycle.cycleLength"><br>
+    <input type="number" class="form-control" name="cycleLength" placeholder="0" [(ngModel)] = "updatedCycle.cycleLength"><br>
 
   <label for = "volume">Update flow volume</label>
-    <select name="volume" [(ngModel)] = "updatedCycle.volume">
+    <select name="volume" class="form-control" [(ngModel)] = "updatedCycle.volume">
     <option value="HEAVY">Heavy</option>
     <option value="MEDIUM">Medium</option>
     <option value="LIGHT">Light</option>
     </select><br>
 
   <label for = "notes">Update notes</label>
-    <input type="text" name="notes" placeholder="Notes" [(ngModel)] = "updatedCycle.notes"><br>
-  <button (click)="update(updatedCycle)">Update</button><br>
-  <button (click)="displayTable()">Back</button>
+    <input type="text" class="form-control" name="notes" placeholder="Notes" [(ngModel)] = "updatedCycle.notes"><br>
+  <button class="btn btn-info" (click)="update(updatedCycle)">Update</button><br>
+
+</div>
   </form>
 
