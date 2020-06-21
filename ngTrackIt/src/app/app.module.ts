@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { CycleListComponent } from './components/cycle-list/cycle-list.component';
 import { CycleService } from './services/cycle.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FlowTypePipe } from './pipes/flow-type.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CycleListComponent
+    CycleListComponent,
+    FlowTypePipe
   ],
   imports: [
     BrowserModule,
@@ -19,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
-    CycleService
+    CycleService,
+    FlowTypePipe
   ],
   bootstrap: [AppComponent]
 })

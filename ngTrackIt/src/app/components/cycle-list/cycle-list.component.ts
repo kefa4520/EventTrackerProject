@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CycleService } from 'src/app/services/cycle.service';
 import { NgForm } from '@angular/forms';
 import { Cycle } from 'src/app/models/cycle';
+import { FlowTypePipe } from 'src/app/pipes/flow-type.pipe';
 
 @Component({
   selector: 'app-cycle-list',
@@ -12,12 +13,32 @@ export class CycleListComponent implements OnInit {
   cycles = [];
 newCycle: Cycle = new Cycle();
 updatedCycle: Cycle = null;
-
-
-  constructor(private cycleService: CycleService) { }
+selected: Cycle = null;
+addRecord = false;
+  constructor(private cycleService: CycleService,
+              private flowPipe: FlowTypePipe) { }
 
   ngOnInit(): void {
     this.loadCycles();
+  }
+
+  getHeavyCount():number{
+    return this.flowPipe.transform(this.cycles).length;
+  }
+
+  showCycle(cycle: Cycle){
+    this.selected = cycle;
+  }
+
+  displayTable(): void {
+    this.loadCycles();
+    this.selected = null;
+    this.addRecord = false;
+    this.updatedCycle = null;
+  }
+
+  displayNew(){
+    this.addRecord = true;
   }
 
   loadCycles(){
@@ -41,7 +62,7 @@ this.cycleService.create(cycle).subscribe(
 data => {
   this.newCycle = new Cycle();
   console.log('Successfully created a new log');
-  this.loadCycles();
+  this.displayTable();
 },
 fail => {
   console.error('problem with creation in the component level');
@@ -54,7 +75,7 @@ fail => {
   deleteCycle(id: number){
 this.cycleService.destroy(id).subscribe(
   cycles => {
-    this.loadCycles();
+    this.displayTable();
   },
   fail => {
     console.error('CycleService.deleteCycle()');

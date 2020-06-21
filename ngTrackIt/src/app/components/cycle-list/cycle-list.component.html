@@ -1,5 +1,7 @@
-<table>
-  <thead>
+<!-- DisplayAll -->
+<div *ngIf = "!selected && !updatedCycle && !addRecord">
+<table class="table table-bordered table-dark">
+  <thead class="thead-dark">
     <tr>
       <td>id</td>
       <td>Name</td>
@@ -13,7 +15,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let cycle of cycles">
+    <tr *ngFor="let cycle of cycles" (click)="showCycle(cycle)">
       <td>{{ cycle.id }}</td>
       <td>{{ cycle.name}}</td>
       <td>{{ cycle.periodStart}}</td>
@@ -26,9 +28,27 @@
     </tr>
   </tbody>
   </table>
+</div>
+
+<button  *ngIf="!addRecord && !selected && !updatedCycle" type="button" class="btn btn-secondary" (click) = "displayNew()">Add New Cycle Record</button>
+
+  <!-- Display Details -->
+<div *ngIf="selected && !updatedCycle && !addRecord">
+ID: {{selected.id}}
+Name: {{selected.name}}
+First date of Your last period: {{selected.periodStart}}
+Period Duration: {{selected.periodDuration}}
+Cycle Length: {{selected.cycleLength}}
+Flow volume: {{selected.volume}}
+Notes: {{selected.notes}}
+
+<button (click)='displayTable()'>Back</button>
+
+</div>
+
 
   <!-- Add new -->
-  <form>
+  <form *ngIf = "addRecord">
     <input type = "hidden" name="id" [(ngModel)] = "newCycle.id">
 
   <label for = "name">Title</label>
@@ -52,7 +72,9 @@
 
   <label for = "notes">Notes</label>
     <input type="text" name="notes" placeholder="Notes" [(ngModel)] = "newCycle.notes"><br>
-  <button (click)="create(newCycle)">Track It</button>
+  <button (click)="create(newCycle)">Track It</button><br>
+  <button (click)="displayTable()">Back</button>
+
   </form>
 
   <!-- Update -->
@@ -81,6 +103,7 @@
 
   <label for = "notes">Update notes</label>
     <input type="text" name="notes" placeholder="Notes" [(ngModel)] = "updatedCycle.notes"><br>
-  <button (click)="update(updatedCycle)">Update</button>
+  <button (click)="update(updatedCycle)">Update</button><br>
+  <button (click)="displayTable()">Back</button>
   </form>
 
