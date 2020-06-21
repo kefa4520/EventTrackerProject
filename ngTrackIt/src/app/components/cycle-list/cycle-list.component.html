@@ -1,1 +1,86 @@
-<p>cycle-list works!</p>
+<table>
+  <thead>
+    <tr>
+      <td>id</td>
+      <td>Name</td>
+      <td>First date of Your last period</td>
+      <td>Period Duration</td>
+      <td>Cycle Length</td>
+      <td>Flow volume</td>
+      <td>Notes</td>
+      <td>Update</td>
+      <td>Delete</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cycle of cycles">
+      <td>{{ cycle.id }}</td>
+      <td>{{ cycle.name}}</td>
+      <td>{{ cycle.periodStart}}</td>
+      <td>{{ cycle.periodDuration}}</td>
+      <td>{{ cycle.cycleLength}}</td>
+      <td>{{ cycle.volume}}</td>
+      <td>{{ cycle.notes}}</td>
+      <td><button (click)="edit(cycle)" class="btn btn-danger"></button></td>
+      <td><button (click)="deleteCycle(cycle.id)" class="btn btn-danger"></button></td>
+    </tr>
+  </tbody>
+  </table>
+
+  <!-- Add new -->
+  <form>
+    <input type = "hidden" name="id" [(ngModel)] = "newCycle.id">
+
+  <label for = "name">Title</label>
+    <input type="text" name="name" placeholder="Name" [(ngModel)] = "newCycle.name"><br>
+
+  <label for = "periodStart">First date of Your last period </label>
+    <input type="date" name="periodStart" [(ngModel)] = "newCycle.periodStart"><br>
+
+  <label for = "periodDuration">Period Duration</label>
+    <input type="number" name="periodDuration" placeholder="0" [(ngModel)] = "newCycle.periodDuration"><br>
+
+  <label for = "cycleLength">Cycle Length</label>
+    <input type="number" name="cycleLength" placeholder="0" [(ngModel)] = "newCycle.cycleLength"><br>
+
+  <label for = "volume">Flow volume</label>
+    <select name="volume" [(ngModel)] = "newCycle.volume">
+    <option value="HEAVY">Heavy</option>
+    <option value="MEDIUM">Medium</option>
+    <option value="LIGHT">Light</option>
+    </select><br>
+
+  <label for = "notes">Notes</label>
+    <input type="text" name="notes" placeholder="Notes" [(ngModel)] = "newCycle.notes"><br>
+  <button (click)="create(newCycle)">Track It</button>
+  </form>
+
+  <!-- Update -->
+
+  <form *ngIf = 'updatedCycle'>
+    <input type = "hidden" name="id" [(ngModel)] = "updatedCycle.id">
+
+  <label for = "name">Update title</label>
+    <input type="text" name="name" placeholder="Name" [(ngModel)] = "updatedCycle.name"><br>
+
+  <label for = "periodStart">Update first date of Your last period </label>
+    <input type="date" name="periodStart" [(ngModel)] = "updatedCycle.periodStart"><br>
+
+  <label for = "periodDuration">Update period Duration</label>
+    <input type="number" name="periodDuration" placeholder="0" [(ngModel)] = "updatedCycle.periodDuration"><br>
+
+  <label for = "cycleLength">Update cycle Length</label>
+    <input type="number" name="cycleLength" placeholder="0" [(ngModel)] = "updatedCycle.cycleLength"><br>
+
+  <label for = "volume">Update flow volume</label>
+    <select name="volume" [(ngModel)] = "updatedCycle.volume">
+    <option value="HEAVY">Heavy</option>
+    <option value="MEDIUM">Medium</option>
+    <option value="LIGHT">Light</option>
+    </select><br>
+
+  <label for = "notes">Update notes</label>
+    <input type="text" name="notes" placeholder="Notes" [(ngModel)] = "updatedCycle.notes"><br>
+  <button (click)="update(updatedCycle)">Update</button>
+  </form>
+
