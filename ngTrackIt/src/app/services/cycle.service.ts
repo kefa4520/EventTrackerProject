@@ -3,14 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Cycle } from '../models/cycle';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CycleService {
-private baseUrl = 'http://localhost:8084/';
-private url = this.baseUrl + 'api/cycles';
+// private baseUrl = 'http://localhost:8084/';
+private url = environment.baseUrl + 'api/cycles';
   constructor(private http: HttpClient) {}
 
 //TODO: get, post, put, delete
